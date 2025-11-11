@@ -1,9 +1,8 @@
 import express from 'express'
+import { aboutMe } from '../controllers/user.js'
 
 const router = express.Router()
 
-router.get('/abhiram', (req, res, next) => {
-  res.send('Abhiram B S Javalli Tudoor Thirthahalli Shimoga')
-})
+router.get('/abhiram', aboutMe)
 
 export default router
