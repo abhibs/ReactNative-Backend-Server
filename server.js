@@ -4,6 +4,6 @@ app.get('', (req, res) => {
   res.send('Server is Working')
 })
 
-app.listen(1997, () => {
-  console.log(`Server Listening on Port:1997`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server Listening on Port:${process.env.PORT}`)
 })
