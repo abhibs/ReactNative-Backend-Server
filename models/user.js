@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
-import { type } from '../node_modules/nodemon/index.d'
-
+import validator from 'validator'
 const schema = new mongoose.Schema({
   name: {
     type: String,
@@ -11,6 +10,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: [true, 'Please Enter Email'],
     unique: [true, 'Email Already Exist'],
+    validate: validator.isEmail,
   },
   password: {
     type: String,
