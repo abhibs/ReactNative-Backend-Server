@@ -4,8 +4,24 @@ export const aboutMe = (req, res) => {
   res.send('Abhiram B S Javalli Tudoor Thirthahalli')
 }
 
-export const userlogin = (req, res) => {
-  res.send('User Login')
+export const userlogin = async (req, res) => {
+  // res.send('User Login')
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email }).select('+password')
+
+  const isMatched = await user.comparePassword(password)
+
+  if (!isMatched) {
+    return res.status(400).json({
+      success: false,
+      message: 'Incorrect Email or Password',
+    })
+  }
+  res.status(200).json({
+    success: true,
+    message: `Login Successfully, ${user.name} `,
+  })
 }
 
 export const userRegister = async (req, res) => {
