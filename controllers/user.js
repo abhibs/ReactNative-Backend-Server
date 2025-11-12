@@ -27,9 +27,11 @@ export const userlogin = asyncError(async (req, res, next) => {
   })
 })
 
-export const userRegister = asyncError(async (req, res) => {
+export const userRegister = asyncError(async (req, res, next) => {
   const { name, email, password, address, city, country, pinCode } = req.body
 
+  let user = await User.findOne({ email })
+  if (user) return next(new ErrorHandler('User Already Exist', 400))
   await User.create({
     name,
     email,
