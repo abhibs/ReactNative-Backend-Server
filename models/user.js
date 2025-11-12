@@ -48,3 +48,5 @@ const schema = new mongoose.Schema({
   otp: Number,
   otp_expire: Date,
 })
+
+export const User = mongoose.model('User', schema)
