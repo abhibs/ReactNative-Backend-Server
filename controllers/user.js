@@ -21,9 +21,11 @@ export const userlogin = asyncError(async (req, res, next) => {
   if (!isMatched) {
     return next(new ErrorHandler('Incorrect Email or Password', 400))
   }
+  const token = user.generateToken()
   res.status(200).json({
     success: true,
     message: `Login Successfully, ${user.name} `,
+    token,
   })
 })
 
