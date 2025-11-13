@@ -1,5 +1,6 @@
 import { User } from '../models/user.js'
 import ErrorHandler from '../utils/error.js'
+import { sendToken } from '../utils/features.js'
 import { asyncError } from '../middlewares/error.js'
 
 export const aboutMe = (req, res) => {
@@ -21,17 +22,7 @@ export const userlogin = asyncError(async (req, res, next) => {
   if (!isMatched) {
     return next(new ErrorHandler('Incorrect Email or Password', 400))
   }
-  const token = user.generateToken()
-  res
-    .status(200)
-    .cookie('token', token, {
-      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-    })
-    .json({
-      success: true,
-      message: `Login Successfully, ${user.name} `,
-      token,
-    })
+  sendToken(user, res, `Welcome Back, ${user.name}`, 200)
 })
 
 export const userRegister = asyncError(async (req, res, next) => {

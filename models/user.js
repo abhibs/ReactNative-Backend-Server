@@ -60,6 +60,7 @@ schema.methods.comparePassword = async function (enteredPassword) {
 }
 
 schema.methods.generateToken = function () {
+  
   return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: '15d',
   })
