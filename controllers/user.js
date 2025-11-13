@@ -22,11 +22,16 @@ export const userlogin = asyncError(async (req, res, next) => {
     return next(new ErrorHandler('Incorrect Email or Password', 400))
   }
   const token = user.generateToken()
-  res.status(200).json({
-    success: true,
-    message: `Login Successfully, ${user.name} `,
-    token,
-  })
+  res
+    .status(200)
+    .cookie('token', token, {
+      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+    })
+    .json({
+      success: true,
+      message: `Login Successfully, ${user.name} `,
+      token,
+    })
 })
 
 export const userRegister = asyncError(async (req, res, next) => {
