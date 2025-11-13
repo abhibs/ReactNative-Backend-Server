@@ -66,3 +66,7 @@ export const userLogout = (req, res) => {
       message: 'Logged Out Successfully',
     })
 }
+
+export const updateProfile = (req, res) => {
+  res.send('User Profile Update')
+}
