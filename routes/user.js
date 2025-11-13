@@ -14,6 +14,6 @@ router.get('/abhiram', aboutMe)
 router.post('/login', userlogin)
 router.post('/register', userRegister)
 router.get('/profile', isAuthenticated, getProfile)
-router.get('/logout', userLogout)
+router.get('/logout', isAuthenticated, userLogout)
 
 export default router

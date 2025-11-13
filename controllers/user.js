@@ -1,6 +1,6 @@
 import { User } from '../models/user.js'
 import ErrorHandler from '../utils/error.js'
-import { sendToken } from '../utils/features.js'
+import { sendToken, cookieOptions } from '../utils/features.js'
 import { asyncError } from '../middlewares/error.js'
 
 export const aboutMe = (req, res) => {
@@ -55,5 +55,14 @@ export const getProfile = asyncError(async (req, res, next) => {
 })
 
 export const userLogout = (req, res) => {
-  res.send('User Logout')
+  res
+    .status(200)
+    .cookie('token', '', {
+      ...cookieOptions,
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: 'Logged Out Successfully',
+    })
 }
