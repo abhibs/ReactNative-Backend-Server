@@ -46,5 +46,10 @@ export const userRegister = asyncError(async (req, res, next) => {
 })
 
 export const getProfile = asyncError(async (req, res, next) => {
-  res.send('Profile Page')
+  const user = await User.findById(req.user._id)
+
+  res.status(200).json({
+    success: true,
+    user,
+  })
 })
