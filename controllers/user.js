@@ -44,3 +44,7 @@ export const userRegister = asyncError(async (req, res, next) => {
     message: 'Registered Successfully',
   })
 })
+
+export const getProfile = asyncError(async (req, res, next) => {
+  res.send('Profile Page')
+})
