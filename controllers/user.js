@@ -53,3 +53,7 @@ export const getProfile = asyncError(async (req, res, next) => {
     user,
   })
 })
+
+export const userLogout = (req, res) => {
+  res.send('User Logout')
+}
