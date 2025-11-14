@@ -3,6 +3,7 @@ import ErrorHandler from '../utils/error.js'
 import { sendToken, cookieOptions, getDataUri } from '../utils/features.js'
 import { asyncError } from '../middlewares/error.js'
 import cloudinary from 'cloudinary'
+
 export const aboutMe = (req, res) => {
   res.send('Abhiram B S Javalli Tudoor Thirthahalli')
 }
@@ -143,3 +144,11 @@ export const updateProfilePic = asyncError(async (req, res) => {
     message: 'Avatar Updated Successfully',
   })
 })
+
+export const forgetPassword = (req, res) => {
+  res.send('Forget Password')
+}
+
+export const resetPassword = (req, res) => {
+  res.send('Reset Password')
+}

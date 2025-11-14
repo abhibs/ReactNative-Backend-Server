@@ -2,7 +2,9 @@ import express from 'express'
 import {
   aboutMe,
   changePassword,
+  forgetPassword,
   getProfile,
+  resetPassword,
   updateProfile,
   updateProfilePic,
   userlogin,
@@ -29,5 +31,7 @@ router.put(
   singleUpload,
   updateProfilePic
 )
+
+router.route('/forget/password').post(forgetPassword).put(resetPassword)
 
 export default router
