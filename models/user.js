@@ -51,7 +51,8 @@ const schema = new mongoose.Schema({
   otp_expire: Date,
 })
 
-schema.pre('save', async function () {
+schema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next()
   this.password = await bcrypt.hash(this.password, 10)
 })
 
@@ -60,7 +61,6 @@ schema.methods.comparePassword = async function (enteredPassword) {
 }
 
 schema.methods.generateToken = function () {
-  
   return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: '15d',
   })

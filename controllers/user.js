@@ -67,6 +67,22 @@ export const userLogout = (req, res) => {
     })
 }
 
-export const updateProfile = (req, res) => {
-  res.send('User Profile Update')
-}
+export const updateProfile = asyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+
+  const { name, email, address, city, country, pinCode } = req.body
+
+  if (name) user.name = name
+  if (email) user.email = email
+  if (address) user.address = address
+  if (city) user.city = city
+  if (country) user.country = country
+  if (pinCode) user.pinCode = pinCode
+
+  await user.save()
+
+  res.status(200).json({
+    success: true,
+    message: 'Profile Updated Successfully',
+  })
+})

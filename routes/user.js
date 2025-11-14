@@ -17,6 +17,6 @@ router.post('/register', userRegister)
 router.get('/profile', isAuthenticated, getProfile)
 router.get('/logout', isAuthenticated, userLogout)
 
-router.get('/update/profile', updateProfile)
+router.put('/update/profile', isAuthenticated, updateProfile)
 
 export default router
