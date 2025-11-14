@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   aboutMe,
+  changePassword,
   getProfile,
   updateProfile,
   userlogin,
@@ -18,5 +19,6 @@ router.get('/profile', isAuthenticated, getProfile)
 router.get('/logout', isAuthenticated, userLogout)
 
 router.put('/update/profile', isAuthenticated, updateProfile)
+router.put('/change/password', changePassword)
 
 export default router

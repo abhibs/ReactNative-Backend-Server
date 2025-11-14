@@ -86,3 +86,7 @@ export const updateProfile = asyncError(async (req, res, next) => {
     message: 'Profile Updated Successfully',
   })
 })
+
+export const changePassword = (req, res) => {
+  res.send('Change Password')
+}
