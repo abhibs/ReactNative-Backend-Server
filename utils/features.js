@@ -1,3 +1,5 @@
+export const getDataUri = () => {}
+
 export const sendToken = (user, res, message, statusCode, next) => {
   const token = user.generateToken()
 

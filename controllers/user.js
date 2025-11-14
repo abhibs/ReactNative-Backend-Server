@@ -1,6 +1,6 @@
 import { User } from '../models/user.js'
 import ErrorHandler from '../utils/error.js'
-import { sendToken, cookieOptions } from '../utils/features.js'
+import { sendToken, cookieOptions, getDataUri } from '../utils/features.js'
 import { asyncError } from '../middlewares/error.js'
 
 export const aboutMe = (req, res) => {
@@ -30,6 +30,9 @@ export const userRegister = asyncError(async (req, res, next) => {
 
   let user = await User.findOne({ email })
   if (user) return next(new ErrorHandler('User Already Exist', 400))
+
+  const file = getDataUri()
+
   await User.create({
     name,
     email,
