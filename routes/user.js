@@ -19,6 +19,6 @@ router.get('/profile', isAuthenticated, getProfile)
 router.get('/logout', isAuthenticated, userLogout)
 
 router.put('/update/profile', isAuthenticated, updateProfile)
-router.put('/change/password', changePassword)
+router.put('/change/password', isAuthenticated, changePassword)
 
 export default router
