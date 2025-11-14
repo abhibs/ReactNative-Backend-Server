@@ -109,3 +109,7 @@ export const changePassword = asyncError(async (req, res, next) => {
     message: 'Password Changed Successully',
   })
 })
+
+export const updateProfilePic = (req, res) => {
+  res.send('Update Profile Pic')
+}

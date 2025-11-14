@@ -4,6 +4,7 @@ import {
   changePassword,
   getProfile,
   updateProfile,
+  updateProfilePic,
   userlogin,
   userLogout,
   userRegister,
@@ -20,5 +21,7 @@ router.get('/logout', isAuthenticated, userLogout)
 
 router.put('/update/profile', isAuthenticated, updateProfile)
 router.put('/change/password', isAuthenticated, changePassword)
+
+router.put('/update/profile/pic', updateProfilePic)
 
 export default router
