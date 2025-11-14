@@ -23,6 +23,11 @@ router.get('/logout', isAuthenticated, userLogout)
 router.put('/update/profile', isAuthenticated, updateProfile)
 router.put('/change/password', isAuthenticated, changePassword)
 
-router.put('/update/profile/pic', updateProfilePic)
+router.put(
+  '/update/profile/pic',
+  isAuthenticated,
+  singleUpload,
+  updateProfilePic
+)
 
 export default router

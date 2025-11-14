@@ -2,7 +2,7 @@ import { User } from '../models/user.js'
 import ErrorHandler from '../utils/error.js'
 import { sendToken, cookieOptions, getDataUri } from '../utils/features.js'
 import { asyncError } from '../middlewares/error.js'
-
+import cloudinary from 'cloudinary'
 export const aboutMe = (req, res) => {
   res.send('Abhiram B S Javalli Tudoor Thirthahalli')
 }
@@ -31,9 +31,19 @@ export const userRegister = asyncError(async (req, res, next) => {
   let user = await User.findOne({ email })
   if (user) return next(new ErrorHandler('User Already Exist', 400))
 
-  const file = getDataUri()
+  let avatar = undefined
+
+  if (req.file) {
+    const file = getDataUri(req.file)
+    const myCloud = await cloudinary.v2.uploader.upload(file.content)
+    avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    }
+  }
 
   await User.create({
+    avatar,
     name,
     email,
     password,
@@ -113,6 +123,23 @@ export const changePassword = asyncError(async (req, res, next) => {
   })
 })
 
-export const updateProfilePic = (req, res) => {
-  res.send('Update Profile Pic')
-}
+export const updateProfilePic = asyncError(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  const file = getDataUri(req.file)
+
+  await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+
+  const myCloud = await cloudinary.v2.uploader.upload(file.content)
+  user.avatar = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  }
+
+  await user.save()
+
+  res.status(200).json({
+    success: true,
+    message: 'Avatar Updated Successfully',
+  })
+})
