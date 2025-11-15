@@ -145,9 +145,27 @@ export const updateProfilePic = asyncError(async (req, res) => {
   })
 })
 
-export const forgetPassword = (req, res) => {
-  res.send('Forget Password')
-}
+export const forgetPassword = asyncError(async (req, res) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+
+  if (!user) return next(new ErrorHandler('Incorrect Email', 404))
+  // max,min 2000,10000
+  // math.random()*(max-min)+min
+
+  const randomNumber = Math.random() * (999999 - 100000) + 100000
+  const otp = Math.floor(randomNumber)
+  const otp_expire = 15 * 60 * 1000
+
+  user.otp = otp
+  user.otp_expire = new Date(Date.now() + otp_expire)
+  await user.save()
+
+  res.status(200).json({
+    success: true,
+    message: `Email Sent To ${user.email}`,
+  })
+})
 
 export const resetPassword = (req, res) => {
   res.send('Reset Password')
