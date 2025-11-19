@@ -8,3 +8,7 @@ export const getAllProducts = asyncError(async (req, res) => {
     products,
   })
 })
+
+export const addProduct = asyncError(async (req, res) => {
+  await res.send('Adding Product')
+})
