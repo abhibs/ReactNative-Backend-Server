@@ -50,3 +50,7 @@ export const productDetail = asyncError(async (req, res) => {
     product,
   })
 })
+
+export const updateProduct = asyncError(async (req, res, next) => {
+  res.send('Product Update')
+})
