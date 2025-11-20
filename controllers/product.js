@@ -38,3 +38,8 @@ export const addProduct = asyncError(async (req, res, next) => {
     message: 'Product Created Successfully',
   })
 })
+
+
+export const productDetail = asyncError(async(req, res)=>{
+  await res.send("Product Detail Page")
+})
