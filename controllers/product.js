@@ -71,3 +71,25 @@ export const updateProduct = asyncError(async (req, res, next) => {
     message: 'Product Updated Successfully',
   })
 })
+
+export const addProductImage = asyncError(async (req, res, next) => {
+  const product = await Product.findById(req.params.id)
+  if (!product) return next(new ErrorHandler('Product not found', 404))
+
+  if (!req.file) return next(new ErrorHandler('Please add image', 400))
+
+  const file = getDataUri(req.file)
+  const myCloud = await cloudinary.v2.uploader.upload(file.content)
+  const image = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  }
+
+  product.images.push(image)
+  await product.save()
+
+  res.status(200).json({
+    success: true,
+    message: 'Image Added Successfully',
+  })
+})

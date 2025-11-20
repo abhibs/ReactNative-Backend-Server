@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   addProduct,
+  addProductImage,
   getAllProducts,
   productDetail,
   updateProduct,
@@ -17,3 +18,5 @@ router
   .get(isAuthenticated, productDetail)
   .put(isAuthenticated, updateProduct)
 export default router
+
+router.post('/images/:id', isAuthenticated, singleUpload, addProductImage)
