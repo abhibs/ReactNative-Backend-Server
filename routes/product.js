@@ -11,5 +11,5 @@ const router = express.Router()
 
 router.get('/all', getAllProducts)
 router.post('/add', isAuthenticated, singleUpload, addProduct)
-router.route('/single/:id').get(productDetail)
+router.route('/single/:id').get(isAuthenticated, productDetail)
 export default router

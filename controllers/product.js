@@ -39,7 +39,14 @@ export const addProduct = asyncError(async (req, res, next) => {
   })
 })
 
+export const productDetail = asyncError(async (req, res) => {
+  // await res.send("Product Detail Page")
+  const product = await Product.findById(req.params.id)
 
-export const productDetail = asyncError(async(req, res)=>{
-  await res.send("Product Detail Page")
+  if (!product) return next(new ErrorHandler('Product not found', 404))
+
+  res.status(200).json({
+    success: true,
+    product,
+  })
 })
