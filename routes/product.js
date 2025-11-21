@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  addCategory,
   addProduct,
   addProductImage,
   deleteProduct,
@@ -25,5 +26,7 @@ router
   .route('/images/:id')
   .post(isAuthenticated, singleUpload, addProductImage)
   .delete(isAuthenticated, deleteProductImage)
+
+router.post('/category/add', isAuthenticated, addCategory)
 
 export default router

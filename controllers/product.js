@@ -3,6 +3,7 @@ import { Product } from '../models/product.js'
 import ErrorHandler from '../utils/error.js'
 import { getDataUri } from '../utils/features.js'
 import cloudinary from 'cloudinary'
+import { Category } from '../models/category.js'
 
 export const getAllProducts = asyncError(async (req, res) => {
   const products = await Product.find({})
@@ -133,5 +134,14 @@ export const deleteProduct = asyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Product Deleted Successfully',
+  })
+})
+
+export const addCategory = asyncError(async (req, res, next) => {
+  await Category.create(req.body)
+
+  res.status(201).json({
+    success: true,
+    message: 'Category Added Successfully',
   })
 })
