@@ -2,6 +2,7 @@ import express from 'express'
 import {
   addProduct,
   addProductImage,
+  deleteProduct,
   deleteProductImage,
   getAllProducts,
   productDetail,
@@ -18,9 +19,11 @@ router
   .route('/single/:id')
   .get(isAuthenticated, productDetail)
   .put(isAuthenticated, updateProduct)
-export default router
+  .delete(isAuthenticated, deleteProduct)
 
 router
   .route('/images/:id')
   .post(isAuthenticated, singleUpload, addProductImage)
   .delete(isAuthenticated, deleteProductImage)
+
+export default router
