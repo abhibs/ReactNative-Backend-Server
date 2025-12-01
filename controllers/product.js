@@ -145,3 +145,31 @@ export const addCategory = asyncError(async (req, res, next) => {
     message: 'Category Added Successfully',
   })
 })
+
+export const getAllCategories = asyncError(async (req, res, next) => {
+  const categories = await Category.find({})
+
+  res.status(200).json({
+    success: true,
+    categories,
+  })
+})
+
+export const deleteCategory = asyncError(async (req, res, next) => {
+  const category = await Category.findById(req.params.id)
+  if (!category) return next(new ErrorHandler('Category Not Found', 404))
+  const products = await Product.find({ category: category._id })
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i]
+    product.category = undefined
+    await product.save()
+  }
+
+  await category.deleteOne()
+
+  res.status(200).json({
+    success: true,
+    message: 'Category Deleted Successfully',
+  })
+})

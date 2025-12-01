@@ -3,8 +3,10 @@ import {
   addCategory,
   addProduct,
   addProductImage,
+  deleteCategory,
   deleteProduct,
   deleteProductImage,
+  getAllCategories,
   getAllProducts,
   productDetail,
   updateProduct,
@@ -28,5 +30,7 @@ router
   .delete(isAuthenticated, deleteProductImage)
 
 router.post('/category/add', isAuthenticated, addCategory)
+router.get('/category/all', isAuthenticated, getAllCategories)
+router.delete('/category/:id', isAuthenticated, deleteCategory)
 
 export default router
