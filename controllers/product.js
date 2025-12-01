@@ -12,6 +12,13 @@ export const getAllProducts = asyncError(async (req, res) => {
     products,
   })
 })
+export const getAdminAllProducts = asyncError(async (req, res) => {
+  const products = await Product.find({})
+  res.status(200).json({
+    success: true,
+    products,
+  })
+})
 
 export const addProduct = asyncError(async (req, res, next) => {
   const { name, description, category, price, stock } = req.body

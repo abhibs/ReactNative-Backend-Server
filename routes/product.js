@@ -6,6 +6,7 @@ import {
   deleteCategory,
   deleteProduct,
   deleteProductImage,
+  getAdminAllProducts,
   getAllCategories,
   getAllProducts,
   productDetail,
@@ -17,6 +18,8 @@ import { singleUpload } from '../middlewares/multer.js'
 const router = express.Router()
 
 router.get('/all', getAllProducts)
+router.get('/admin/all', isAuthenticated, isAdmin, getAdminAllProducts)
+
 router.post('/add', isAuthenticated, isAdmin, singleUpload, addProduct)
 router
   .route('/single/:id')
