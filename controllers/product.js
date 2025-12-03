@@ -6,14 +6,26 @@ import cloudinary from 'cloudinary'
 import { Category } from '../models/category.js'
 
 export const getAllProducts = asyncError(async (req, res) => {
-  const products = await Product.find({}).populate('category')
+  const { keyword, category } = req.query
+  const query = {}
+  if (keyword) {
+    query.name = {
+      $regex: keyword,
+      $options: 'i',
+    }
+  }
+  if (category) {
+    query.category = category
+  }
+  const products = await Product.find(query).populate('category')
   res.status(200).json({
     success: true,
     products,
   })
 })
+
 export const getAdminAllProducts = asyncError(async (req, res) => {
-  const products = await Product.find({})
+  const products = await Product.find({}).populate('category')
   res.status(200).json({
     success: true,
     products,
