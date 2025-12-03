@@ -6,7 +6,7 @@ import cloudinary from 'cloudinary'
 import { Category } from '../models/category.js'
 
 export const getAllProducts = asyncError(async (req, res) => {
-  const products = await Product.find({})
+  const products = await Product.find({}).populate('category')
   res.status(200).json({
     success: true,
     products,
